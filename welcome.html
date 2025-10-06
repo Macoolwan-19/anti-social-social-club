@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome | Anti Social Social Club</title>
+<style>
+  body {
+    background-color: #000;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+  }
+
+  .logo {
+    width: 100px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+    letter-spacing: 1px;
+    color: #e63946;
+  }
+
+  p {
+    max-width: 450px;
+    font-size: 1.1em;
+    color: #ccc;
+  }
+
+  button {
+    margin-top: 20px;
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  button:hover {
+    background-color: #ff4d5a;
+    box-shadow: 0 0 15px #ff4d5a;
+  }
+</style>
+</head>
+<body>
+  <svg class="logo" viewBox="0 0 512 512" fill="#e63946">
+    <path d="M502.4 79.8C470.9 93.7 31.5 288.3 3.4 301.5c-4.9 2.3-5.1 9.4-0.3 12 69.5 38.5 167.7 22.4 263.7-45.2 78.5-55.6 155.1-133.4 235.6-188.8z"/>
+  </svg>
+
+  <h1>ANTI SOCIAL SOCIAL CLUB</h1>
+  <p>Welcome, friend 👋  
+  You’re not alone here. This space is for reflection, comfort, and healing.  
+  We’ve got your back — always.</p>
+
+  <button onclick="location.href='mood.html'">Continue</button>
+</body>
+</html>

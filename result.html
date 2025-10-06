@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Mood | Sir Tiger Advice</title>
+<style>
+  body{background-color:#000;color:#fff;font-family:"Poppins",sans-serif;text-align:center;margin:0;padding:0;animation:fadeIn 1s ease-in;}
+  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+  header{background-color:#b3242b;padding:20px;font-size:22px;font-weight:bold;}
+  .container{padding:30px;max-width:650px;margin:auto;}
+  textarea{width:90%;height:90px;margin-top:10px;border-radius:8px;padding:10px;border:none;font-size:15px;}
+  button{background-color:#e63946;color:#fff;border:none;border-radius:10px;padding:10px 25px;font-size:16px;cursor:pointer;margin-top:10px;transition:0.3s;}
+  button:hover{background-color:#ff4d5a; box-shadow:0 0 15px #ff4d5a;}
+  a{color:#ff4d5a;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  audio{margin-top:15px;border-radius:8px;}
+</style>
+</head>
+<body>
+<header>Your Personal Space 💬</header>
+
+<div class="container" id="moodResult"></div>
+
+<div class="container" id="chatSection">
+  <h3>Talk to Sir Tiger 🐅</h3>
+  <p>Share what’s on your heart. Sir Tiger listens — and answers with care.</p>
+  <textarea id="userProblem" placeholder="Write how you feel..."></textarea><br>
+  <button onclick="talkToSirTiger()">Send to Sir Tiger</button>
+  <p id="tigerResponse"></p>
+  <audio id="moodAudio" controls autoplay></audio>
+</div>
+
+<div class="container">
+  <p>Need extra help? Visit our <a href="help.html">Toll-Free Help Page</a> 📞</p>
+  <button onclick="location.href='mood.html'">← Back</button>
+  <button onclick="location.href='feedback.html'">💌 Feedback</button>
+</div>
+
+<script>
+const mood = localStorage.getItem("userMood");
+const resultDiv = document.getElementById("moodResult");
+const audio = document.getElementById("moodAudio");
+const moodSounds = {
+  Happy:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  Sad:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+  Angry:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+  Depressed:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+  Anxious:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+};
+
+if(mood){
+  let advice="", prayer="";
+  switch(mood){
+    case"Happy":advice="Your joy is contagious! Keep spreading light wherever you go 🌞";break;
+    case"Sad":advice="Tears are not weakness — they’re release. Be gentle with yourself 🌧️";break;
+    case"Angry":advice="Anger is valid, but peace is power. Pause and breathe 🔥";break;
+    case"Depressed":advice="It’s okay to feel this way. Please don’t walk alone — light still waits ahead ❤️";prayer="🙏 ‘Dear God, bring peace to my heart and remind me I’m never alone.’";break;
+    case"Anxious":advice="You’re safe in this moment. Inhale hope, exhale fear 🌿";break;
+  }
+  resultDiv.innerHTML=`<h2>Your Mood: ${mood}</h2><p>${advice}</p>${prayer?`<p>${prayer}</p>`:""}`;
+  audio.src=moodSounds[mood];
+}
+
+function talkToSirTiger(){
+  const problem=document.getElementById("userProblem").value.trim();
+  const response=document.getElementById("tigerResponse");
+  if(problem===""){response.textContent="Sir Tiger: Take your time, my friend. I’m here when you’re ready 🐅";return;}
+  const heartfelt=[
+    "Sir Tiger: That sounds really heavy, but please know — you are not a burden. You matter deeply ❤️",
+    "Sir Tiger: Healing isn’t quick, but you’re walking the right path. Keep breathing and believing 🌸",
+    "Sir Tiger: You are stronger than the pain you carry. Don’t let the darkness tell you otherwise 🌤️",
+    "Sir Tiger: I’m proud of you for opening up — that takes courage. You’re doing better than you think 🫶",
+    "Sir Tiger: Remember, hope hides in small things — music, laughter, sunlight. Hold on to them 🌈"
+  ];
+  response.textContent=heartfelt[Math.floor(Math.random()*heartfelt.length)];
+
+  // Save mood history
+  let history=JSON.parse(localStorage.getItem("moodHistory")||"[]");
+  history.push({mood,moment:new Date().toLocaleString()});
+  localStorage.setItem("moodHistory",JSON.stringify(history));
+
+  // Open WhatsApp with pre-filled message
+  const encodedMessage=encodeURIComponent("Client message for Sir Tiger: "+problem);
+  window.open("https://wa.me/263774634166?text="+encodedMessage,"_blank");
+
+  // Sir Tiger speaks advice
+  const utterance=new SpeechSynthesisUtterance(response.textContent);
+  speechSynthesis.speak(utterance);
+}
+</script>
+</body>
+</html>
